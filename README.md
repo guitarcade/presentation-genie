@@ -1,3 +1,3 @@
-# Introduction to GraphQL
+# Introduction to Genie
 
-https://creactiviti.github.io/presentation-graphql-introduction/#/
+https://creactiviti.github.io/presentation-genie/#/
