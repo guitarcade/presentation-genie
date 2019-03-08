@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Introduction to GraphQL</title>
+		<title>Introduction to Genie</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Oleg Ilyenko">
@@ -88,6 +88,103 @@
 
         <section>
             <h2>The Solution</h2>
+        </section>
+
+        <section>
+            <h2>Genie</h2>
+            <img src="assets/img/genie_arch.png" style="max-width: 70%">
+        </section>
+
+        <section>
+            <h2>Genie</h2>
+            <ul>
+              <li class="fragment fade-in" data-fragment-index="2">
+                  General purpose distributed workflow engine
+              </li>
+              <li class="fragment fade-in" data-fragment-index="2">
+                  Master/Worker model
+              </li>
+              <li class="fragment fade-in" data-fragment-index="3">
+                  Worker nodes are completely stateless
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                  All communication between the Coordinator (Master) and workers is done through message queues.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                  Supports both cloud and on-premise deployment.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="6">
+                  Workers can be written in any laguange.
+              </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Pipelines</h2>
+        </section>
+
+        <section>
+            <h2>Pipelines</h2>
+            <ul>
+              <li class="fragment fade-in" data-fragment-index="2">
+                Defines the work to be done.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="3">
+                Typically specified in YAML
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                Composed of a set of atomic tasks.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="5">
+                Provides an appropriate abstraction to execute in a distributed environment.
+              </li>
+            </ul>
+        </section>
+
+        <section>
+          <h2>Genie: Pipelines - Example</h2>
+          <pre style="font-size: 35%"><code data-trim contenteditable class="javascript">
+label: trailer pipeline
+inputs:
+  - name: contentId
+    type: string
+    required: true
+  - name: source
+    type: string
+    required: true
+tasks:
+  - label: Transcode the source
+    type: ffmpeg
+    node: encoder
+    retry: 2
+    timeout: 1h
+    options: [
+      -y,
+      -i, "${source}",
+      "${contentId}.mp4"
+    ]
+  - label: Transport the trailer to the CDN
+    node: transporter
+    type: cdnUpload
+    file: "${contentId}.mp4"
+    path: "/trailers/${contentId}.mp4"
+
+          </code></pre>
+        </section>
+
+        <section>
+            <h2>Applications & Use Cases</h2>
+            <ul>
+              <li class="fragment fade-in" data-fragment-index="2">
+                  Streaming services: Movies Anywhere, Screening Room, Disney Life
+              </li>
+              <li class="fragment fade-in" data-fragment-index="3">
+                  Package Devliery: DSS Package Validator
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                  Video Proxy: Wonderland, Marvel's 5th Kind
+              </li>
+            </ul>
         </section>
 
 			</div>
