@@ -61,6 +61,10 @@
           <p style="font-size: 70%; opacity: 0.5" class="normal-font">
             by Arik Cohen
           </p>
+
+          <p style="font-size: 40%; opacity: 0.5" class="normal-font">
+              (Use ← → to move around)
+          </p>
         </section>
 
         <section>
@@ -77,10 +81,10 @@
             <li class="fragment fade-in" data-fragment-index="3">
               We want a high-quality viewing experience.
             </li>
-            <li class="fragment fade-in" data-fragment-index="3">
+            <li class="fragment fade-in" data-fragment-index="4">
               We want to protect our movies from piracy.
             </li>
-            <li class="fragment fade-in" data-fragment-index="4">
+            <li class="fragment fade-in" data-fragment-index="5">
               We want it to be fast.
             </li>
           </ul>
@@ -101,19 +105,19 @@
               <li class="fragment fade-in" data-fragment-index="2">
                   General purpose distributed workflow engine
               </li>
-              <li class="fragment fade-in" data-fragment-index="2">
+              <li class="fragment fade-in" data-fragment-index="3">
                   Master/Worker model
               </li>
-              <li class="fragment fade-in" data-fragment-index="3">
+              <li class="fragment fade-in" data-fragment-index="4">
                   Worker nodes are completely stateless
               </li>
-              <li class="fragment fade-in" data-fragment-index="4">
+              <li class="fragment fade-in" data-fragment-index="5">
                   All communication between the Coordinator (Master) and workers is done through message queues.
               </li>
-              <li class="fragment fade-in" data-fragment-index="4">
+              <li class="fragment fade-in" data-fragment-index="6">
                   Supports both cloud and on-premise deployment.
               </li>
-              <li class="fragment fade-in" data-fragment-index="6">
+              <li class="fragment fade-in" data-fragment-index="7">
                   Workers can be written in any laguange.
               </li>
             </ul>
@@ -138,11 +142,14 @@
               <li class="fragment fade-in" data-fragment-index="5">
                 Provides an appropriate abstraction to execute in a distributed environment.
               </li>
+              <li class="fragment fade-in" data-fragment-index="6">
+                Stored in a Git repo (versioning, permissions etc.)
+              </li>
             </ul>
         </section>
 
         <section>
-          <h2>Genie: Pipelines - Example</h2>
+          <h2>Pipelines - Example</h2>
           <pre style="font-size: 35%"><code data-trim contenteditable class="javascript">
 label: trailer pipeline
 inputs:
@@ -172,6 +179,65 @@ tasks:
           </code></pre>
         </section>
 
+
+        <section>
+            <h2>Task Handlers</h2>
+        </section>
+
+        <section>
+            <h2>Task Handlers</h2>
+            <ul>
+              <li class="fragment fade-in" data-fragment-index="2">
+                Responsible for executing a pipeline task
+              </li>
+              <li class="fragment fade-in" data-fragment-index="3">
+                Can provide an output to be used by downstream tasks
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                Exceptions bubble back to the Coordinator to decide what to do next: retry, stop the job etc.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                Hundreds of task handlers are already available for pipeline authors.
+              </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Task Handler - Example</h2>
+            <pre style="font-size: 50%">
+<code data-trim contenteditable class="javascript">
+    &nbsp;
+      public class RandomInt implements TaskHandler&lt;Object&gt; {
+
+          public Object handle (Task aTask) throws Exception {
+            int startInclusive = aTask.getInteger ("startInclusive", 0); 
+            int endInclusive = aTask.getInteger ("endInclusive", 100);
+            return RandomUtils.nextInt (startInclusive, endInclusive);
+          }
+
+      }
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Plugins</h2>
+        </section>
+
+        <section>
+            <h2>Plugins</h2>
+            <ul>
+              <li class="fragment fade-in" data-fragment-index="2">
+                  A way to extend Genie for a particular use-case without having to touch core.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="3">
+                  Typically a collection of task handlers.
+              </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                  Gets bundled only with the worker configuration that requires it.
+              </li>
+            </ul>
+        </section>
+
         <section>
             <h2>Applications & Use Cases</h2>
             <ul>
@@ -182,8 +248,23 @@ tasks:
                   Package Devliery: DSS Package Validator
               </li>
               <li class="fragment fade-in" data-fragment-index="4">
-                  Video Proxy: Wonderland, Marvel's 5th Kind
+                  Video Proxy: Wonderland, Marvel's 5th Kind, ChannelD (auditions), Delta, ReView
               </li>
+              <li class="fragment fade-in" data-fragment-index="4">
+                  Fingerprinting: FGS
+              </li>
+            </ul>
+        </section>
+
+        <section style="font-size: 55%;">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                 Repo: https://code.wds.io/tig/genie
+              </li>
+              <li>
+                 Docs: https://code.wds.io/tig/genie/blob/master/README.md
+               </li>
             </ul>
         </section>
 
