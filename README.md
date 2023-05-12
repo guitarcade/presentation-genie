@@ -1,3 +1,3 @@
 # Introduction to Genie
 
-https://creactiviti.github.io/presentation-genie/#/
+https://guitarcade.github.io/presentation-genie/#/
